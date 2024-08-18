@@ -2,7 +2,16 @@
 	"name": "svelte-fuels",
 	"description": "A thin wrapper around the Fuels SDK for Svelte with a focus on reactivity",
 	"author": "Props Labs, Calvin Hoenes <hello@props.app> (https://www.propslabs.com)",
-	"version": "0.0.1",
+	"version": "0.0.3",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Props-Labs/svelte-fuels.git"
+	},
+	"homepage": "https://github.com/Props-Labs/svelte-fuels#readme",
+	"bugs": {
+		"url": "https://github.com/Props-Labs/svelte-fuels/issues"
+	},
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
