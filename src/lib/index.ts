@@ -1,13 +1,11 @@
 export { default as WalletProvider } from './WalletProvider.svelte';
 
-import { Fuel, BN, Account } from 'fuels';
+import { Fuel, BN, Account, FuelConnector } from 'fuels';
 import { FuelWalletConnector } from '@fuels/connectors';
 
 import { derived, writable } from 'svelte/store';
 
-const fuel = new Fuel({
-	connectors: [new FuelWalletConnector()]
-});
+let fuel: Fuel;
 
 type WalletState = {
 	connected: boolean;
@@ -40,10 +38,23 @@ export const fuelStore = derived(walletStore, ($walletStore) => {
 	return $walletStore.fuel;
 });
 
-export const createWalletStore = () => {
+export type WalletStoreOptions = {
+	connectors?: Array<FuelConnector>;
+}
+
+export const createWalletStore = (options: WalletStoreOptions) => {
+
+	fuel = new Fuel({
+		connectors: [new FuelWalletConnector(), ...(options.connectors || [])]
+	});
+
 	const handleConnection = async () => {
-		const connected = await fuel?.isConnected();
 		const hasConnector = await fuel?.hasConnector();
+		if (!hasConnector) {
+			console.error('svelte-fuels: No connector found. Please provide a connector and install the wallet.');
+			return;
+		}
+		const connected = await fuel?.isConnected();
 
 		let currentAccount: string | null = null;
 		let wallet: Account | undefined = undefined;
@@ -80,10 +91,22 @@ export const createWalletStore = () => {
 	handleConnection();
 };
 
-export const connect = async () => {
-    await fuel?.connect();
+export const connect = async (connectorName?: string) => {
+	try {
+		fuel?.selectConnector(connectorName || 'Fuel Wallet');
+		await fuel?.connect();
+	} catch (error) {
+		console.error('Failed to connect:', error);
+		throw error;
+	}
 };
 
-export const disconnect = async () => {
-    await fuel?.disconnect();
+export const disconnect = async (connectorName?: string) => {
+    try {
+		fuel?.selectConnector(connectorName || 'Fuel Wallet');
+        await fuel?.disconnect();
+    } catch (error) {
+        console.error('Failed to disconnect:', error);
+        throw error;
+    }
 };

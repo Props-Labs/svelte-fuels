@@ -14,6 +14,8 @@ npm install svelte-fuels fuels
 
 To initialize the package, you can simply wrap you layout slot in the provided WalletProvider component.
 
+### Basic Example
+
 ```svelte
 <script>
   import { WalletProvider } from 'svelte-fuels';
@@ -22,6 +24,38 @@ To initialize the package, you can simply wrap you layout slot in the provided W
 <WalletProvider>
   <slot />
 </WalletProvider>
+```
+
+### Using Custom Connectors
+
+```svelte
+<script>
+  import { WalletProvider } from 'svelte-fuels';
+  import { WalletConnectConnector, WalletConnectConfig } from '@fuels/connectors';
+
+  const config = new WalletConnectConfig({
+    fuelProvider?: {} // Fuel provider
+    projectId?: "" // Your wallet connect project id
+    wagmiConfig?: {} // Wagmi config
+    predicateConfig?: {} // Predicate config
+  });
+</script>
+
+<WalletProvider connectors={[new WalletConnectConnector(config)]}>
+  <slot />
+</WalletProvider>
+```
+
+And in your wallet handler, you can use the `connect` function to connect to a Fuel provider by passing the connector name.
+
+```svelte
+<script>
+  import { connect } from 'svelte-fuels';
+
+  async function handleConnect() {
+    await connect("Ethereum Wallet");
+  }
+</script>
 ```
 
 ### Stores
