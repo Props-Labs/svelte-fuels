@@ -3,6 +3,8 @@ export { default as WalletProvider } from './WalletProvider.svelte';
 import { Fuel, BN, Account, FuelConnector } from 'fuels';
 import { FuelWalletConnector } from '@fuels/connectors';
 
+export * from 'fuels';
+
 import { derived, writable } from 'svelte/store';
 
 let fuel: Fuel;

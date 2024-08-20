@@ -181,6 +181,18 @@ The `connect` function connects to a Fuel provider.
 <button on:click={handleConnect}>Connect to Fuel</button>
 ```
 
+## Using Fuels Types
+
+All exports from the fuels-ts package are available through direct import.
+
+```svelte
+<script>
+  import { Signer } from 'fuels';
+</script>
+
+<!-- ... -->
+```
+
 ## Roadmap
 
 This is a basic package created for projects that require authentication using Fuels with Svelte. Additional features can be added based on community feedback and requirements.

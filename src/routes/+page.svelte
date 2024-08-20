@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { connected, account, connect, disconnect } from '$lib';
+	import { connected, account, connect, disconnect } from '$lib/index.js';
 </script>
 
 <main>
@@ -7,10 +7,10 @@
 	
 	{#if $connected}
 		<p>Connected Account: {$account}</p>
-		<button on:click={disconnect}>Disconnect Wallet</button>
+		<button on:click={() => disconnect()}>Disconnect Wallet</button>
 	{:else}
 		<p>Not connected</p>
-		<button on:click={connect}>Connect Wallet</button>
+		<button on:click={() => connect()}>Connect Wallet</button>
 	{/if}
 </main>
 
