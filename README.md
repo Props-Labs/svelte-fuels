@@ -7,8 +7,21 @@ Svelte-Fuels is a package that provides a collection of Svelte stores and functi
 To install the package and its peer dependencies, run the following command:
 
 ```bash
-npm install svelte-fuels fuels
+npm install svelte-fuels
 ```
+
+
+## Important Note
+
+To work with the latest Fuel testnet node upgrades, you can install the nightly next version with:
+
+```bash
+npm install svelte-fuels@next
+```
+
+This will install with fuels@next (currently `0.94.0`) release.
+
+
 
 ## Usage
 
