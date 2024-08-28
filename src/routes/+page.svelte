@@ -1,16 +1,19 @@
 <script lang="ts">
-	import { connected, account, connect, disconnect } from '$lib/index.js';
+	import { connected, account, connect, disconnect, hasConnector } from '$lib/index.js';
 </script>
 
 <main>
 	<h1>Svelte Fuels Demo</h1>
-	
-	{#if $connected}
-		<p>Connected Account: {$account}</p>
-		<button on:click={() => disconnect()}>Disconnect Wallet</button>
+	{#if $hasConnector}
+		{#if $connected}
+			<p>Connected Account: {$account}</p>
+			<button on:click={() => disconnect()}>Disconnect Wallet</button>
+		{:else}
+			<p>Not connected</p>
+			<button on:click={() => connect()}>Connect Wallet</button>
+		{/if}
 	{:else}
-		<p>Not connected</p>
-		<button on:click={() => connect()}>Connect Wallet</button>
+		<p>No Wallet installed. Please install a Fuel Wallet to continue.</p>
 	{/if}
 </main>
 
